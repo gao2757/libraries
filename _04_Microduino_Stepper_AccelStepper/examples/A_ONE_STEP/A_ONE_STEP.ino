@@ -1,25 +1,25 @@
-//This is an example of how you would control 1 stepper
+﻿//This is an example of how you would control 1 stepper
 
 #include <AccelStepper.h>
 
 int motorSpeed = 9600; //maximum steps per second (about 3rps / at 16 microsteps)
 int motorAccel = 80000; //steps/second/second to accelerate
 
-int motorDirPin = 12; //digital pin 2
-int motorStepPin = 15; //digital pin 3
+int motorDirPin = 16; //digital pin 2
+int motorStepPin = 17; //digital pin 3
 
 //set up the accelStepper intance
 //the "1" tells it we are using a driver
 AccelStepper stepper(1, motorStepPin, motorDirPin); 
-//A4982,left to right(Ҳ����OUT2B��OUT2A��OUT1A��OUT1B�����ſ�)��:red,green,yellow,blue��
+//A4982,left to right(?????OUT2B??OUT2A??OUT1A??OUT1B???????)??:red,green,yellow,blue??
 
 
 void setup(){
  stepper.setMaxSpeed(motorSpeed);
  stepper.setSpeed(motorSpeed);
  stepper.setAcceleration(motorAccel);
- pinMode(26,OUTPUT);
- digitalWrite(26,LOW);
+ pinMode(A2,OUTPUT);
+ digitalWrite(A2,LOW);
  stepper.moveTo(3200); //move 32000 steps (should be 10 rev)
 }
 

@@ -32,7 +32,7 @@ _Joypad Joypad;
 const byte MUX_ADDR_PINS[] = { A0, A1, A2, A3 };
 const byte MUX_COM_PIN = A6;
 
-const int JOYSTICK_DEAD_ZONE = 100;
+const int JOYSTICK_DEAD_ZONE = 200;
 
 const byte BUZZER_PIN = 6;
 const byte MOTOR_PIN = 8;
