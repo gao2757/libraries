@@ -33,12 +33,17 @@ const byte JOYSTICK1_BASE  = 20; // it's a "virtual" channel: its ID won't confl
 
 const byte MAX_CHANNELS   = 16;
 
+const byte CH_INT_B       = 4;
+const byte CH_INT_A       = 5;
+
 const byte CH_SWITCH_1    = 3;
 const byte CH_SWITCH_2    = 2;
 const byte CH_SWITCH_3    = 1;
 const byte CH_SWITCH_4    = 0;
+
 const byte CH_LIGHT       = 15;
 const byte CH_MIC         = 14;
+
 const byte CH_JOYSTICK_SW = 10;
 const byte CH_JOYSTICK_X  = 9;
 const byte CH_JOYSTICK_Y  = 8;
@@ -55,19 +60,6 @@ const byte CH_SWITCH_R       = 6;
  * method.
  */
 
-const byte SWITCH_L       = 7;
-const byte SWITCH_R       = 6;
-
-const byte SWITCH_1       = 3;
-const byte SWITCH_2       = 2;
-const byte SWITCH_3       = 1;
-const byte SWITCH_4       = 0;
-
-const byte SWITCH_A  = SWITCH_1;
-const byte SWITCH_B  = SWITCH_2;
-const byte SWITCH_C  = SWITCH_3;
-const byte SWITCH_D  = SWITCH_4;
-
 const byte JOYSTICK_DOWN  = JOYSTICK_BASE;
 const byte JOYSTICK_LEFT  = JOYSTICK_BASE+1;
 const byte JOYSTICK_UP    = JOYSTICK_BASE+2;
@@ -78,8 +70,6 @@ const byte JOYSTICK1_LEFT  = JOYSTICK1_BASE+1;
 const byte JOYSTICK1_UP    = JOYSTICK1_BASE+2;
 const byte JOYSTICK1_RIGHT = JOYSTICK1_BASE+3;
 
-const byte JOYSTICK_SW = 10;
-const byte JOYSTICK1_SW = 11;
 
 /*
  * These constants can be use for comparison with the value returned
@@ -87,14 +77,6 @@ const byte JOYSTICK1_SW = 11;
  */
 const boolean PRESSED   = LOW;
 const boolean RELEASED  = HIGH;
-
-/*
- * The following constants can be used with the readTemperature()
- * method to specify the desired scale.
- */
-const byte DEGREES_C = 0;
-const byte DEGREES_F = 1;
-
 
 
 class _Joypad {
@@ -125,10 +107,10 @@ public:
    * Returns a number corresponding to the amount of ambient noise.
    */
   inline unsigned int readMicrophone() { return readChannel(CH_MIC); }
-  
-  inline unsigned int readJoystickSwitch() { return readChannel(CH_JOYSTICK_SW); }
-  inline unsigned int readJoystick1Switch() { return readChannel(CH_JOYSTICK1_SW); }
 
+  inline unsigned int readIntA() { return readChannel(CH_INT_A); }
+  inline unsigned int readIntB() { return readChannel(CH_INT_B); }
+  
   inline int readJoystickX() { 
     return readChannel(CH_JOYSTICK_X) - 512;
   }
@@ -149,10 +131,6 @@ public:
    * LOW if the button is pressed, and HIGH otherwise.
    */
   boolean readButton(byte channel);
-
-  boolean readJoystickButton();
-  boolean readJoystick1Button();
-  
   
   void tone(unsigned int freq);
   void tone(unsigned int freq, unsigned long duration);

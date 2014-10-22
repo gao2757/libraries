@@ -107,23 +107,6 @@ boolean _Joypad::readButton(byte ch) {
   return (val > 512) ? HIGH : LOW;
 }
 
-boolean _Joypad::readJoystickButton() {
- if (readChannel(CH_JOYSTICK_SW) == 1023) {
-  return HIGH;
- } else if (readChannel(CH_JOYSTICK_SW) == 0) {
-  return LOW;
- }
-}
-
-boolean _Joypad::readJoystick1Button() {
- if (readChannel(CH_JOYSTICK1_SW) == 1023) {
-  return HIGH;
- } else if (readChannel(CH_JOYSTICK1_SW) == 0) {
-  return LOW;
- }
-}
-
-
 void _Joypad::tone(unsigned int freq) {
   if (freq > 0)
     ::tone(BUZZER_PIN, freq);
@@ -143,6 +126,7 @@ void _Joypad::noTone() {
 }
 
 void _Joypad::motor(unsigned int motor_vol){
+pinMode(MOTOR_PIN,OUTPUT);
 #if defined(__AVR_ATmega1284P__)  || defined(__AVR_ATmega644P__)   || defined(__AVR_ATmega32U4__) 
 analogWrite(MOTOR_PIN,motor_vol);
 #else

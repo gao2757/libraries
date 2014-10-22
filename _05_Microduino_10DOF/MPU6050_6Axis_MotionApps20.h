@@ -56,11 +56,11 @@ THE SOFTWARE.
 // after moving string constants to flash memory storage using the F()
 // compiler macro (Arduino IDE 1.0+ required).
 
+
 //#define DEBUG
 #ifdef DEBUG
     #define DEBUG_PRINT(x) Serial.print(x)
     #define DEBUG_PRINTF(x, y) Serial.print(x, y)
-    #define DEBUG_PRINTLN(x) Serial.println(x)
     #define DEBUG_PRINTLNF(x, y) Serial.println(x, y)
 #else
     #define DEBUG_PRINT(x)
@@ -289,7 +289,7 @@ uint8_t MPU6050::dmpInitialize() {
     setSleepEnabled(true);
     Serial.println(F("Enabling wake cycle..."));
     setWakeCycleEnabled(true);*/
-
+    
     // disable sleep mode
     DEBUG_PRINTLN(F("Disabling sleep mode..."));
     setSleepEnabled(false);
@@ -339,6 +339,8 @@ uint8_t MPU6050::dmpInitialize() {
     DEBUG_PRINT(F("Writing DMP code to MPU memory banks ("));
     DEBUG_PRINT(MPU6050_DMP_CODE_SIZE);
     DEBUG_PRINTLN(F(" bytes)"));
+    
+
     if (writeProgMemoryBlock(dmpMemory, MPU6050_DMP_CODE_SIZE)) {
         DEBUG_PRINTLN(F("Success! DMP code written and verified."));
 
@@ -346,6 +348,7 @@ uint8_t MPU6050::dmpInitialize() {
         DEBUG_PRINT(F("Writing DMP configuration to MPU memory banks ("));
         DEBUG_PRINT(MPU6050_DMP_CONFIG_SIZE);
         DEBUG_PRINTLN(F(" bytes in config def)"));
+        
         if (writeProgDMPConfigurationSet(dmpConfig, MPU6050_DMP_CONFIG_SIZE)) {
             DEBUG_PRINTLN(F("Success! DMP configuration written and verified."));
 
