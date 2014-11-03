@@ -34,16 +34,6 @@ struct pin_map_t {
 #if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 // Mega
 
-// Two Wire (aka I2C) ports
-uint8_t const SDA_PIN = 20;
-uint8_t const SCL_PIN = 21;
-
-// SPI port
-uint8_t const SS_PIN = 53;
-uint8_t const MOSI_PIN = 51;
-uint8_t const MISO_PIN = 50;
-uint8_t const SCK_PIN = 52;
-
 static const pin_map_t digitalPinMap[] = {
   {&DDRE, &PINE, &PORTE, 0},  // E0  0
   {&DDRE, &PINE, &PORTE, 1},  // E1  1
@@ -117,107 +107,103 @@ static const pin_map_t digitalPinMap[] = {
   {&DDRK, &PINK, &PORTK, 7}   // K7 69
 };
 //------------------------------------------------------------------------------
-#elif defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644__)
-// Sanguino
-
-// Two Wire (aka I2C) ports
-uint8_t const SDA_PIN = 17;
-uint8_t const SCL_PIN = 18;
-
-// SPI port
-uint8_t const SS_PIN = 10;
-uint8_t const MOSI_PIN = 11;
-uint8_t const MISO_PIN = 12;
-uint8_t const SCK_PIN = 13;
+#elif defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
+// Microduino Core+
 
 static const pin_map_t digitalPinMap[] = {
-  {&DDRB, &PINB, &PORTB, 0},  // B0  0
-  {&DDRB, &PINB, &PORTB, 1},  // B1  1
-  {&DDRB, &PINB, &PORTB, 2},  // B2  2
-  {&DDRB, &PINB, &PORTB, 3},  // B3  3
-  {&DDRB, &PINB, &PORTB, 4},  // B4  4
-  {&DDRB, &PINB, &PORTB, 5},  // B5  5
-  {&DDRB, &PINB, &PORTB, 6},  // B6  6
-  {&DDRB, &PINB, &PORTB, 7},  // B7  7
-  {&DDRD, &PIND, &PORTD, 0},  // D0  8
-  {&DDRD, &PIND, &PORTD, 1},  // D1  9
-  {&DDRD, &PIND, &PORTD, 2},  // D2 10
-  {&DDRD, &PIND, &PORTD, 3},  // D3 11
-  {&DDRD, &PIND, &PORTD, 4},  // D4 12
-  {&DDRD, &PIND, &PORTD, 5},  // D5 13
-  {&DDRD, &PIND, &PORTD, 6},  // D6 14
-  {&DDRD, &PIND, &PORTD, 7},  // D7 15
-  {&DDRC, &PINC, &PORTC, 0},  // C0 16
-  {&DDRC, &PINC, &PORTC, 1},  // C1 17
-  {&DDRC, &PINC, &PORTC, 2},  // C2 18
-  {&DDRC, &PINC, &PORTC, 3},  // C3 19
-  {&DDRC, &PINC, &PORTC, 4},  // C4 20
-  {&DDRC, &PINC, &PORTC, 5},  // C5 21
-  {&DDRC, &PINC, &PORTC, 6},  // C6 22
-  {&DDRC, &PINC, &PORTC, 7},  // C7 23
-  {&DDRA, &PINA, &PORTA, 7},  // A7 24
-  {&DDRA, &PINA, &PORTA, 6},  // A6 25
-  {&DDRA, &PINA, &PORTA, 5},  // A5 26
-  {&DDRA, &PINA, &PORTA, 4},  // A4 27
-  {&DDRA, &PINA, &PORTA, 3},  // A3 28
-  {&DDRA, &PINA, &PORTA, 2},  // A2 29
-  {&DDRA, &PINA, &PORTA, 1},  // A1 30
-  {&DDRA, &PINA, &PORTA, 0}   // A0 31
-};
+  {&DDRD, &PIND, &PORTD, 0},  // D0 PD0
+  {&DDRD, &PIND, &PORTD, 1},  // D1 PD1
+  {&DDRD, &PIND, &PORTD, 2},  // D2 PD2
+  {&DDRD, &PIND, &PORTD, 3},  // D3 PD3
+  {&DDRB, &PINB, &PORTB, 0},  // D4 PB0
+  {&DDRB, &PINB, &PORTB, 1},  // D5 PB1
+  {&DDRB, &PINB, &PORTB, 2},  // D6 PB2
+  {&DDRB, &PINB, &PORTB, 3},  // D7 PB3
+  {&DDRD, &PIND, &PORTD, 6},  // D8 PD6
+  {&DDRD, &PIND, &PORTD, 5},  // D9 PD5
+  {&DDRB, &PINB, &PORTB, 4},  // D10 PB4
+  {&DDRB, &PINB, &PORTB, 5},  // D11 PB5
+  {&DDRB, &PINB, &PORTB, 6},  // D12 PB6
+  {&DDRB, &PINB, &PORTB, 7},  // D13 PB7
+  {&DDRC, &PINC, &PORTC, 7},  // D14 PC7
+  {&DDRC, &PINC, &PORTC, 6},  // D15 PC6
+  {&DDRC, &PINC, &PORTC, 5},  // D16 PC5
+  {&DDRC, &PINC, &PORTC, 4},  // D17 PC4
+  {&DDRC, &PINC, &PORTC, 3},  // D18 PC3
+  {&DDRC, &PINC, &PORTC, 2},  // D19 PC2
+  {&DDRC, &PINC, &PORTC, 1},  // D20 PC1
+  {&DDRC, &PINC, &PORTC, 0},  // D21 PC0
+  {&DDRD, &PIND, &PORTD, 4},  // D22 PD4
+  {&DDRD, &PIND, &PORTD, 7},  // D23 PD7
+  {&DDRA, &PINA, &PORTA, 7},  // D24 PA7
+  {&DDRA, &PINA, &PORTA, 6},  // D25 PA6
+  {&DDRA, &PINA, &PORTA, 5},  // D26 PA5
+  {&DDRA, &PINA, &PORTA, 4},  // D27 PA4
+  {&DDRA, &PINA, &PORTA, 3},  // D28 PA3
+  {&DDRA, &PINA, &PORTA, 2},  // D29 PA2
+  {&DDRA, &PINA, &PORTA, 1},  // D30 PA1
+  {&DDRA, &PINA, &PORTA, 0}   // D31 PA0
+};                         
+//------------------------------------------------------------------------------
+#elif defined(__AVR_ATmega128RFA1__)
+// Microduino Core RF
+
+static const pin_map_t digitalPinMap[] = {
+  {&DDRD, &PINE, &PORTE, 0},  // D0 PE0
+  {&DDRD, &PINE, &PORTE, 1},  // D1 PE1
+  {&DDRD, &PIND, &PORTD, 2},  // D2 PD2
+  {&DDRD, &PIND, &PORTD, 3},  // D3 PD3
+  {&DDRB, &PINE, &PORTE, 3},  // D4 PE3
+  {&DDRB, &PINE, &PORTE, 4},  // D5 PE4
+  {&DDRB, &PINE, &PORTE, 5},  // D6 PE5
+  {&DDRB, &PINB, &PORTB, 7},  // D7 PB7
+  {&DDRD, &PINB, &PORTB, 6},  // D8 PB6
+  {&DDRD, &PINB, &PORTB, 5},  // D9 PB5
+  {&DDRB, &PINB, &PORTB, 4},  // D10 PB4
+  {&DDRB, &PINB, &PORTB, 2},  // D11 PB2
+  {&DDRB, &PINB, &PORTB, 3},  // D12 PB3
+  {&DDRB, &PINB, &PORTB, 1},  // D13 PB1
+  {&DDRF, &PINF, &PORTF, 7},  // D14 PF7
+  {&DDRF, &PINF, &PORTF, 6},  // D15 PF6
+  {&DDRF, &PINF, &PORTF, 5},  // D16 PF5
+  {&DDRF, &PINF, &PORTF, 4},  // D17 PF4
+  {&DDRD, &PIND, &PORTD, 1},  // D18 PD1
+  {&DDRD, &PIND, &PORTD, 0},  // D19 PD0
+  {&DDRF, &PINF, &PORTF, 3},  // D20 PF3
+  {&DDRF, &PINF, &PORTF, 2},  // D21 PF2
+};                         
 //------------------------------------------------------------------------------
 #elif defined(__AVR_ATmega32U4__)
-// Leonardo
-
-// Two Wire (aka I2C) ports
-uint8_t const SDA_PIN = 2;
-uint8_t const SCL_PIN = 3;
-
-// SPI port
-uint8_t const SS_PIN = 17;
-uint8_t const MOSI_PIN = 16;
-uint8_t const MISO_PIN = 14;
-uint8_t const SCK_PIN = 15;
+// Microduino Core USB
 
 static const pin_map_t digitalPinMap[] = {
-  {&DDRD, &PIND, &PORTD, 2},  // D2  0
-  {&DDRD, &PIND, &PORTD, 3},  // D3  1
-  {&DDRD, &PIND, &PORTD, 1},  // D1  2
-  {&DDRD, &PIND, &PORTD, 0},  // D0  3
-  {&DDRD, &PIND, &PORTD, 4},  // D4  4
-  {&DDRC, &PINC, &PORTC, 6},  // C6  5
-  {&DDRD, &PIND, &PORTD, 7},  // D7  6
-  {&DDRE, &PINE, &PORTE, 6},  // E6  7
-  {&DDRB, &PINB, &PORTB, 4},  // B4  8
-  {&DDRB, &PINB, &PORTB, 5},  // B5  9
-  {&DDRB, &PINB, &PORTB, 6},  // B6 10
-  {&DDRB, &PINB, &PORTB, 7},  // B7 11
-  {&DDRD, &PIND, &PORTD, 6},  // D6 12
-  {&DDRC, &PINC, &PORTC, 7},  // C7 13
-  {&DDRB, &PINB, &PORTB, 3},  // B3 14
-  {&DDRB, &PINB, &PORTB, 1},  // B1 15
-  {&DDRB, &PINB, &PORTB, 2},  // B2 16
-  {&DDRB, &PINB, &PORTB, 0},  // B0 17
-  {&DDRF, &PINF, &PORTF, 7},  // F7 18
-  {&DDRF, &PINF, &PORTF, 6},  // F6 19
-  {&DDRF, &PINF, &PORTF, 5},  // F5 20
-  {&DDRF, &PINF, &PORTF, 4},  // F4 21
-  {&DDRF, &PINF, &PORTF, 1},  // F1 22
-  {&DDRF, &PINF, &PORTF, 0},  // F0 23
-};
-//------------------------------------------------------------------------------
+  {&DDRD, &PIND, &PORTD, 2},  // D0 - PD2
+  {&DDRD, &PIND, &PORTD, 3},  // D1 - PD3
+  {&DDRE, &PINE, &PORTE, 6},  // D2 - PE6
+  {&DDRD, &PIND, &PORTD, 6},  // D3 - PD6
+  {&DDRD, &PIND, &PORTD, 7},  // D4 - PD7
+  {&DDRC, &PINC, &PORTC, 6},  // D5 - PC6
+  {&DDRC, &PINC, &PORTC, 7},  // D6 - PC7
+  {&DDRE, &PINE, &PORTE, 7},  // D7 - PE7
+  {&DDRB, &PINB, &PORTB, 6},  // D8 - PB6
+  {&DDRB, &PINB, &PORTB, 5},  // D9 - PB5
+  {&DDRB, &PINB, &PORTB, 0},  // D10 - PB0
+  {&DDRB, &PINB, &PORTB, 2},  // D11 - MOSI - PB2
+  {&DDRB, &PINB, &PORTB, 3},  // D12 -MISO -  PB3
+  {&DDRB, &PINB, &PORTB, 1},  // D13 -SCK -  PB1
+  {&DDRF, &PINF, &PORTF, 7},  // D14 - A0 - PF7
+  {&DDRF, &PINF, &PORTF, 6},  // D15 - A1 - PF6
+  {&DDRF, &PINF, &PORTF, 5},  // D16 - A2 - PF5
+  {&DDRF, &PINF, &PORTF, 4},  // D17 - A3 - PF4
+  {&DDRD, &PIND, &PORTD, 1},  // D18 - PD1
+  {&DDRD, &PIND, &PORTD, 0},  // D19 - PD0
+  {&DDRF, &PINF, &PORTF, 1},  // D20 - A6 - PF1
+  {&DDRF, &PINF, &PORTF, 0},  // D21 - A7 - PF0
+};                            
+//---------------------------------------------  ---------------------------------
 #elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
-// Teensy++ 1.0 & 2.0
-
-// Two Wire (aka I2C) ports
-uint8_t const SDA_PIN = 1;
-uint8_t const SCL_PIN = 0;
-
-// SPI port
-uint8_t const SS_PIN = 20;
-uint8_t const MOSI_PIN = 22;
-uint8_t const MISO_PIN = 23;
-uint8_t const SCK_PIN = 21;
-
+// Teensy++ 1.0 & 2.0              
+                           
 static const pin_map_t digitalPinMap[] = {
   {&DDRD, &PIND, &PORTD, 0},  // D0  0
   {&DDRD, &PIND, &PORTD, 1},  // D1  1
@@ -269,16 +255,6 @@ static const pin_map_t digitalPinMap[] = {
 //------------------------------------------------------------------------------
 #else  // defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
 // 168 and 328 Arduinos
-
-// Two Wire (aka I2C) ports
-uint8_t const SDA_PIN = 18;
-uint8_t const SCL_PIN = 19;
-
-// SPI port
-uint8_t const SS_PIN = 10;
-uint8_t const MOSI_PIN = 11;
-uint8_t const MISO_PIN = 12;
-uint8_t const SCK_PIN = 13;
 
 static const pin_map_t digitalPinMap[] = {
   {&DDRD, &PIND, &PORTD, 0},  // D0  0

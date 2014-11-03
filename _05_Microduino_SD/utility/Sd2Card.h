@@ -17,6 +17,8 @@
  * along with the Arduino Sd2Card Library.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+#include "arduino.h"
+
 #ifndef Sd2Card_h
 #define Sd2Card_h
 /**
@@ -57,14 +59,14 @@ uint8_t const SPI_QUARTER_SPEED = 2;
  * master unless SS is set to output mode.
  */
 /** The default chip select pin for the SD card is SS. */
-uint8_t const  SD_CHIP_SELECT_PIN = SS_PIN;
+uint8_t const  SD_CHIP_SELECT_PIN = SS;
 // The following three pins must not be redefined for hardware SPI.
 /** SPI Master Out Slave In pin */
-uint8_t const  SPI_MOSI_PIN = MOSI_PIN;
+uint8_t const  SPI_MOSI_PIN = MOSI;
 /** SPI Master In Slave Out pin */
-uint8_t const  SPI_MISO_PIN = MISO_PIN;
+uint8_t const  SPI_MISO_PIN = MISO;
 /** SPI Clock pin */
-uint8_t const  SPI_SCK_PIN = SCK_PIN;
+uint8_t const  SPI_SCK_PIN = SCK;
 /** optimize loops for hardware SPI */
 #define OPTIMIZE_HARDWARE_SPI
 

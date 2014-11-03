@@ -12,10 +12,10 @@ D12 : MISO
 D13 : SCK
 */
 
-#define PIN_RESET 4
+#define PIN_RESET -1
 #define PIN_CS 5
-#define PIN_DC 6
-#define PIN_LED 7
+#define PIN_DC 4
+#define PIN_LED 6
 
 //Basic Colors
 #define RED		0xf800

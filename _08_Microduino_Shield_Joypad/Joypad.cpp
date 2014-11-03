@@ -127,7 +127,7 @@ void _Joypad::noTone() {
 
 void _Joypad::motor(unsigned int motor_vol){
 pinMode(MOTOR_PIN,OUTPUT);
-#if defined(__AVR_ATmega1284P__)  || defined(__AVR_ATmega644P__)   || defined(__AVR_ATmega32U4__) 
+#if defined(__AVR_ATmega1284P__)  || defined(__AVR_ATmega644P__)  || defined(__AVR_ATmega128RFA1__)   || defined(__AVR_ATmega32U4__) 
 analogWrite(MOTOR_PIN,motor_vol);
 #else
 if(motor_vol>0)

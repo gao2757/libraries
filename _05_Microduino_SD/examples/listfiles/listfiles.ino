@@ -24,7 +24,7 @@ File root;
 void setup()
 {
   // Open serial communications and wait for port to open:
-  Serial.begin(9600);
+  Serial.begin(115200);
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
@@ -35,9 +35,9 @@ void setup()
   // Note that even if it's not used as the CS pin, the hardware SS pin 
   // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
   // or the SD library functions will not work. 
-  pinMode(10, OUTPUT);
 
-  if (!SD.begin(10)) {
+// Microduino SD shield: pin 7
+  if (!SD.begin(7)) {
     Serial.println("initialization failed!");
     return;
   }

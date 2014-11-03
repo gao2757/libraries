@@ -10,32 +10,35 @@
 
 #include <AccelStepper.h>
 
-// Define some steppers and the pins the will use
-AccelStepper stepper1; // Defaults to AccelStepper::FULL4WIRE (4 pins) on 2, 3, 4, 5
-AccelStepper stepper2(AccelStepper::FULL4WIRE, 6, 7, 8, 9);
-AccelStepper stepper3(AccelStepper::FULL2WIRE, 10, 11);
+int motorDirPin = 5;
+int motorStepPin = 7;
+int motorEnPin = 8;
+
+int motor1DirPin = 18;
+int motor1StepPin = 22;
+int motor1EnPin = 23;
+
+// Define a stepper and the pins it will use
+AccelStepper stepper1(1, motorStepPin, motorDirPin);
+AccelStepper stepper2(1, motor1StepPin, motor1DirPin);
+//A4982,left to right(OUT2B OUT2A OUT1A OUT1B):red,green,yellow,blue
 
 void setup()
 {  
-    stepper1.setMaxSpeed(200.0);
-    stepper1.setAcceleration(100.0);
-    stepper1.moveTo(24);
-    
-    stepper2.setMaxSpeed(300.0);
-    stepper2.setAcceleration(100.0);
-    stepper2.moveTo(1000000);
-    
-    stepper3.setMaxSpeed(300.0);
-    stepper3.setAcceleration(100.0);
-    stepper3.moveTo(1000000); 
+  stepper1.setMaxSpeed(200.0);
+  stepper1.setAcceleration(100.0);
+  stepper1.moveTo(24);
+
+  stepper2.setMaxSpeed(300.0);
+  stepper2.setAcceleration(100.0);
+  stepper2.moveTo(1000000);
 }
 
 void loop()
 {
-    // Change direction at the limits
-    if (stepper1.distanceToGo() == 0)
-	stepper1.moveTo(-stepper1.currentPosition());
-    stepper1.run();
-    stepper2.run();
-    stepper3.run();
+  // Change direction at the limits
+  if (stepper1.distanceToGo() == 0)
+    stepper1.moveTo(-stepper1.currentPosition());
+  stepper1.run();
+  stepper2.run();
 }

@@ -37,7 +37,7 @@ const int chipSelect = 7;
 void setup()
 {
  // Open serial communications and wait for port to open:
-  Serial.begin(9600);
+  Serial.begin(115200);
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
@@ -48,7 +48,6 @@ void setup()
   // Note that even if it's not used as the CS pin, the hardware SS pin 
   // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
   // or the SD library functions will not work. 
-  pinMode(SS, OUTPUT);     // change this to 53 on a mega
 
 
   // we'll use the initialization code from the utility libraries
