@@ -28,9 +28,8 @@
 #include <Adafruit_NFCShield_I2C.h>
 
 #define IRQ   (2)
-#define RESET (3)  // Not connected by default on the NFC Shield
 
-Adafruit_NFCShield_I2C nfc(IRQ, RESET);
+Adafruit_NFCShield_I2C nfc(IRQ);
 
 void setup(void) {
   Serial.begin(115200);

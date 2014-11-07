@@ -22,9 +22,8 @@
 #define B_PIN (11)
 
 #define IRQ   (2)
-#define RESET (3)  // Not connected by default on the NFC Shield
 
-Adafruit_NFCShield_I2C nfc(IRQ, RESET);
+Adafruit_NFCShield_I2C nfc(IRQ);
 
 // Initial values of RGB.
 uint8_t r = 0x00;

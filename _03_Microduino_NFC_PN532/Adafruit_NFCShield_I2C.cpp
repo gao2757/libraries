@@ -100,15 +100,12 @@ static inline uint8_t wirerecv(void)
     @brief  Instantiates a new PN532 class
 
     @param  irq       Location of the IRQ pin
-    @param  reset     Location of the RSTPD_N pin
 */
 /**************************************************************************/
-Adafruit_NFCShield_I2C::Adafruit_NFCShield_I2C(uint8_t irq, uint8_t reset) {
+Adafruit_NFCShield_I2C::Adafruit_NFCShield_I2C(uint8_t irq) {
   _irq = irq;
-  _reset = reset;
 
   pinMode(_irq, INPUT);
-  pinMode(_reset, OUTPUT);
 }
 
 /**************************************************************************/
@@ -118,12 +115,6 @@ Adafruit_NFCShield_I2C::Adafruit_NFCShield_I2C(uint8_t irq, uint8_t reset) {
 /**************************************************************************/
 void Adafruit_NFCShield_I2C::begin() {
   WIRE.begin();
-
-  // Reset the PN532  
-  digitalWrite(_reset, HIGH);
-  digitalWrite(_reset, LOW);
-  delay(400);
-  digitalWrite(_reset, HIGH);
 }
  
 /**************************************************************************/
