@@ -461,11 +461,10 @@ boolean Adafruit_NFCShield_I2C::readPassiveTargetID(uint8_t cardbaudrate, uint8_
   #ifdef PN532DEBUG
   Serial.println("Waiting for IRQ (indicates card presence)");
   #endif
-  while (wirereadstatus() != PN532_I2C_READY)
-  {
-	delay(10);
-  }
-
+  
+  if(!waitUntilReady(100)) 
+    return false;
+	
   #ifdef PN532DEBUG
   Serial.println("Found a card"); 
   #endif
@@ -943,12 +942,7 @@ boolean Adafruit_NFCShield_I2C::readackframe(void) {
 */
 /**************************************************************************/
 uint8_t Adafruit_NFCShield_I2C::wirereadstatus(void) {
-  uint8_t x = digitalRead(_irq);
-  
-  if (x == 1)
-    return PN532_I2C_BUSY;
-  else
-    return PN532_I2C_READY;
+    return digitalRead(_irq) ? PN532_I2C_BUSY : PN532_I2C_READY;
 }
 
 /**************************************************************************/

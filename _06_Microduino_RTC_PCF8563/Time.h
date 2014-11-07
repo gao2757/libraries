@@ -21,7 +21,6 @@
 typedef unsigned long time_t;
 #endif
 
-
 // This ugly hack allows us to define C++ overloaded functions, when included
 // from within an extern "C", as newlib's sys/stat.h does.  Actually it is
 // intended to include "time.h" from the C library (on ARM, but AVR does not
@@ -43,13 +42,13 @@ typedef enum {
 } tmByteFields;	   
 
 typedef struct  { 
-  uint8_t Second; 
-  uint8_t Minute; 
-  uint8_t Hour; 
-  uint8_t Wday;   // day of week, sunday is day 1
-  uint8_t Day;
-  uint8_t Month; 
-  uint8_t Year;   // offset from 1970; 
+  uint8_t c_Second; 
+  uint8_t c_Minute; 
+  uint8_t c_Hour; 
+  uint8_t c_Wday;   // day of week, sunday is day 1
+  uint8_t c_Day;
+  uint8_t c_Month; 
+  uint8_t c_Year;   // offset from 1970; 
 } 	tmElements_t, TimeElements, *tmElementsPtr_t;
 
 //convenience macros to convert to and from tm years 
@@ -118,8 +117,8 @@ int     year();            // the full four digit year: (2009, 2010 etc)
 int     year(time_t t);    // the year for the given time
 
 time_t now();              // return the current time as seconds since Jan 1 1970 
-void    setTime(time_t t);
-void    setTime(int hr,int min,int sec,int day, int month, int yr);
+uint32_t     makeTimeStamp(time_t t);
+uint32_t     makeTimeStamp(int hr,int min,int sec,int day, int month, int yr);
 void    adjustTime(long adjustment);
 
 /* date strings */ 
@@ -139,6 +138,7 @@ void breakTime(time_t time, tmElements_t &tm);  // break time_t into elements
 time_t makeTime(tmElements_t &tm);  // convert time elements into time_t
 
 } // extern "C++"
+
 #endif // __cplusplus
 #endif /* _Time_h */
 

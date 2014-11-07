@@ -18,7 +18,7 @@
   
   6  Jan 2010 - initial release 
   12 Feb 2010 - fixed leap year calculation error
-  1  Nov 2010 - fixed setTime bug (thanks to Korman for this)
+  1  Nov 2010 - fixed makeTimeStamp bug (thanks to Korman for this)
   24 Mar 2012 - many edits by Paul Stoffregen: fixed timeStatus() to update
                 status, updated examples for Arduino 1.0, fixed ARM
                 compatibility issues, added TimeArduinoDue and TimeTeensy3
@@ -51,7 +51,7 @@ int hour() { // the hour now
 
 int hour(time_t t) { // the hour for the given time
   refreshCache(t);
-  return tm.Hour;  
+  return tm.c_Hour;  
 }
 
 int hourFormat12() { // the hour now in 12 hour format
@@ -60,12 +60,12 @@ int hourFormat12() { // the hour now in 12 hour format
 
 int hourFormat12(time_t t) { // the hour for the given time in 12 hour format
   refreshCache(t);
-  if( tm.Hour == 0 )
+  if( tm.c_Hour == 0 )
     return 12; // 12 midnight
-  else if( tm.Hour  > 12)
-    return tm.Hour - 12 ;
+  else if( tm.c_Hour  > 12)
+    return tm.c_Hour - 12 ;
   else
-    return tm.Hour ;
+    return tm.c_Hour ;
 }
 
 uint8_t isAM() { // returns true if time now is AM
@@ -90,7 +90,7 @@ int minute() {
 
 int minute(time_t t) { // the minute for the given time
   refreshCache(t);
-  return tm.Minute;  
+  return tm.c_Minute;  
 }
 
 int second() {
@@ -99,7 +99,7 @@ int second() {
 
 int second(time_t t) {  // the second for the given time
   refreshCache(t);
-  return tm.Second;
+  return tm.c_Second;
 }
 
 int day(){
@@ -108,7 +108,7 @@ int day(){
 
 int day(time_t t) { // the day for the given time (0-6)
   refreshCache(t);
-  return tm.Day;
+  return tm.c_Day;
 }
 
 int weekday() {   // Sunday is day 1
@@ -117,7 +117,7 @@ int weekday() {   // Sunday is day 1
 
 int weekday(time_t t) {
   refreshCache(t);
-  return tm.Wday;
+  return tm.c_Wday;
 }
    
 int month(){
@@ -126,7 +126,7 @@ int month(){
 
 int month(time_t t) {  // the month for the given time
   refreshCache(t);
-  return tm.Month;
+  return tm.c_Month;
 }
 
 int year() {  // as in Processing, the full four digit year: (2009, 2010 etc) 
@@ -135,7 +135,7 @@ int year() {  // as in Processing, the full four digit year: (2009, 2010 etc)
 
 int year(time_t t) { // the year for the given time
   refreshCache(t);
-  return tmYearToCalendar(tm.Year);
+  return tmYearToCalendar(tm.c_Year);
 }
 
 /*============================================================================*/	
@@ -158,20 +158,20 @@ void breakTime(time_t timeInput, tmElements_t &tm){
   unsigned long days;
 
   time = (uint32_t)timeInput;
-  tm.Second = time % 60;
+  tm.c_Second = time % 60;
   time /= 60; // now it is minutes
-  tm.Minute = time % 60;
+  tm.c_Minute = time % 60;
   time /= 60; // now it is hours
-  tm.Hour = time % 24;
+  tm.c_Hour = time % 24;
   time /= 24; // now it is days
-  tm.Wday = ((time + 4) % 7) + 1;  // Sunday is day 1 
+  tm.c_Wday = ((time + 4) % 7) + 1;  // Sunday is day 1 
   
   year = 0;  
   days = 0;
   while((unsigned)(days += (LEAP_YEAR(year) ? 366 : 365)) <= time) {
     year++;
   }
-  tm.Year = year; // year is offset from 1970 
+  tm.c_Year = year; // year is offset from 1970 
   
   days -= LEAP_YEAR(year) ? 366 : 365;
   time  -= days; // now it is days in this year, starting at 0
@@ -196,8 +196,8 @@ void breakTime(time_t timeInput, tmElements_t &tm){
         break;
     }
   }
-  tm.Month = month + 1;  // jan is month 1  
-  tm.Day = time + 1;     // day of month
+  tm.c_Month = month + 1;  // jan is month 1  
+  tm.c_Day = time + 1;     // day of month
 }
 
 time_t makeTime(tmElements_t &tm){   
@@ -209,25 +209,25 @@ time_t makeTime(tmElements_t &tm){
   uint32_t seconds;
 
   // seconds from 1970 till 1 jan 00:00:00 of the given year
-  seconds= tm.Year*(SECS_PER_DAY * 365);
-  for (i = 0; i < tm.Year; i++) {
+  seconds= tm.c_Year*(SECS_PER_DAY * 365);
+  for (i = 0; i < tm.c_Year; i++) {
     if (LEAP_YEAR(i)) {
       seconds +=  SECS_PER_DAY;   // add extra days for leap years
     }
   }
   
   // add days for this year, months start from 1
-  for (i = 1; i < tm.Month; i++) {
-    if ( (i == 2) && LEAP_YEAR(tm.Year)) { 
+  for (i = 1; i < tm.c_Month; i++) {
+    if ( (i == 2) && LEAP_YEAR(tm.c_Year)) { 
       seconds += SECS_PER_DAY * 29;
     } else {
       seconds += SECS_PER_DAY * monthDays[i-1];  //monthDay array starts from 0
     }
   }
-  seconds+= (tm.Day-1) * SECS_PER_DAY;
-  seconds+= tm.Hour * SECS_PER_HOUR;
-  seconds+= tm.Minute * SECS_PER_MIN;
-  seconds+= tm.Second;
+  seconds+= (tm.c_Day-1) * SECS_PER_DAY;
+  seconds+= tm.c_Hour * SECS_PER_HOUR;
+  seconds+= tm.c_Minute * SECS_PER_MIN;
+  seconds+= tm.c_Second;
   return (time_t)seconds; 
 }
 /*=====================================================*/	
@@ -239,7 +239,7 @@ static uint32_t nextSyncTime = 0;
 static timeStatus_t Status = timeNotSet;
 
 getExternalTime getTimePtr;  // pointer to external sync function
-//setExternalTime setTimePtr; // not used in this version
+//setExternalTime getTimePtr; // not used in this version
 
 #ifdef TIME_DRIFT_INFO   // define this to get drift data
 time_t sysUnsyncedTime = 0; // the time sysTime unadjusted by sync  
@@ -258,7 +258,7 @@ time_t now() {
     if (getTimePtr != 0) {
       time_t t = getTimePtr();
       if (t != 0) {
-        setTime(t);
+        makeTimeStamp(t);
       } else {
         nextSyncTime = sysTime + syncInterval;
         Status = (Status == timeNotSet) ?  timeNotSet : timeNeedsSync;
@@ -268,7 +268,7 @@ time_t now() {
   return (time_t)sysTime;
 }
 
-void setTime(time_t t) { 
+uint32_t makeTimeStamp(time_t t) { 
 #ifdef TIME_DRIFT_INFO
  if(sysUnsyncedTime == 0) 
    sysUnsyncedTime = t;   // store the time of the first call to set a valid Time   
@@ -278,22 +278,24 @@ void setTime(time_t t) {
   nextSyncTime = (uint32_t)t + syncInterval;
   Status = timeSet;
   prevMillis = millis();  // restart counting from now (thanks to Korman for this fix)
+  return sysTime;
 } 
 
-void setTime(int hr,int min,int sec,int dy, int mnth, int yr){
+uint32_t makeTimeStamp(int hr,int min,int sec,int dy, int mnth, int yr){
  // year can be given as full four digit year or two digts (2010 or 10 for 2010);  
  //it is converted to years since 1970
   if( yr > 99)
       yr = yr - 1970;
   else
       yr += 30;  
-  tm.Year = yr;
-  tm.Month = mnth;
-  tm.Day = dy;
-  tm.Hour = hr;
-  tm.Minute = min;
-  tm.Second = sec;
-  setTime(makeTime(tm));
+
+  tm.c_Year = yr;
+  tm.c_Month = mnth;
+  tm.c_Day = dy;
+  tm.c_Hour = hr;
+  tm.c_Minute = min;
+  tm.c_Second = sec;
+  return makeTimeStamp(makeTime(tm));
 }
 
 void adjustTime(long adjustment) {
